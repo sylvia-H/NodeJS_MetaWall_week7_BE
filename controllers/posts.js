@@ -86,7 +86,7 @@ const PostController = {
     const _id = req.params.id;
     await Post.findOneAndUpdate(
       { _id },
-      { $addToSet: { likes: req.user._id } },
+      { $addToSet: { likes: req.user.id } },
       { new: true },
       (err, result) => {
         if (err) {
@@ -99,7 +99,7 @@ const PostController = {
         res.status(201).json({
           status: 'success',
           postId: _id,
-          userId: req.user._id,
+          userId: req.user.id,
         });
       }
     );
