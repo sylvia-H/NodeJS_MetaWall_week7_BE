@@ -102,7 +102,7 @@ const PostController = {
   },
   async getFavList(req, res, next) {
     const user = req.params.id;
-    const favList = await Post.find({ user });
+    const favList = await Post.find({ likes:user });
     successHandler(res, favList);
   },
 };
