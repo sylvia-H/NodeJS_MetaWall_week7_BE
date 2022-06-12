@@ -3,7 +3,7 @@ const appError = require('../helper/appError');
 const Post = require('../model/post');
 
 const PostController = {
-  async getPosts(req, res) {
+  async getPosts(req, res, next) {
     // 過濾出自己的貼文，以及設為公開的貼文
     const permission = {
       $or: [{ author: { _id: req.user._id } }, { privacy: 'public' }],
