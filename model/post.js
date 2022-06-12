@@ -22,10 +22,10 @@ const postSchema = new mongoose.Schema(
       default: '',
     },
     likes: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-      },
+      { 
+        type: mongoose.Schema.ObjectId, 
+        ref: 'User' 
+      }
     ],
     comments: [
       {

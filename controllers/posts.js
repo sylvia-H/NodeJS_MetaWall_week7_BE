@@ -99,7 +99,7 @@ const PostController = {
         res.status(201).json({
           status: 'success',
           postId: id,
-          userId: req.user.id,
+          userId: req.user._id,
         });
       }
     );
@@ -121,7 +121,7 @@ const PostController = {
         res.status(201).json({
           status: 'success',
           postId: id,
-          userId: req.user.id,
+          userId: req.user._id,
         });
       }
     );
