@@ -6,17 +6,17 @@ const CommentController = {
   async getComments(req, res) {
     const comments = await Comment.find().populate({
       path: 'author',
-      select: 'name avatar',
+      select: '_id name avatar',
     });
     successHandler(res, comments);
   },
   async createComments(req, res) {
-    const { articleID, author, body } = req.body;
-    if (articleID && author && body) {
+    const { articleID, author, comment } = req.body;
+    if (articleID && author && comment) {
       await Comment.create({
         articleID,
         author,
-        body,
+        comment,
       });
       CommentController.getComments(req, res);
     } else {

@@ -11,9 +11,9 @@ const commentSchema = new mongoose.Schema(
       ref: 'User',
       required: [true, '缺少回文者資訊'],
     },
-    body: {
+    comment: {
       type: String,
-      required: [true, '沒有回覆內容'],
+      required: [true, '回覆內容不可為空！'],
     },
   },
   {
@@ -22,6 +22,15 @@ const commentSchema = new mongoose.Schema(
     collection: 'comments',
   }
 );
+
+commentSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'author',
+    select: '_id name avatar'
+  });
+
+  next();
+});
 
 const Comment = mongoose.model('Comment', commentSchema);
 
