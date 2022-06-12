@@ -18,8 +18,8 @@ const CommentController = {
         article_id,
         author,
         comment,
-      }).then(() => {
-        CommentController.getComments(req, res);
+      }).then((result) => {
+        successHandler(res, result);
       });
     } else {
       return appError(
