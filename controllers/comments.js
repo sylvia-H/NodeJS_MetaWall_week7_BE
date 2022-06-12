@@ -33,7 +33,7 @@ const CommentController = {
     const { id } = req.params;
     const comment = await Comment.findById(id);
     // 非本人不能刪除評論
-    if (req.user.id !== comment.author) {
+    if (req.user._id !== comment.author) {
       return appError(
         401,
         'Bad Request Error - You do not have permission to delete this comment',
