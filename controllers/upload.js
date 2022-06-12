@@ -1,22 +1,9 @@
 const appError = require('../helper/appError');
 const sizeOf = require('image-size');
 const { ImgurClient } = require('imgur');
-const { upload, apiLimiter } = require('../helper/uploadImage');
 
 const UploadController = {
   async uploadImg(req, res, next) {
-    // Middleware：過濾檔案格式與圖片大小
-    upload(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        return appError(400, err, next);
-      } else if (err) {
-        // An unknown error occurred when uploading.
-        return appError(400, 'Bad Request Error - File upload failed.', next);
-      }
-      // Everything went fine.
-      next();
-    })
     // 門檻一：過濾檔案上傳失敗狀況
     if (!req.files.length) {
       return appError(400, 'Bad Request Error - File upload failed.', next);
