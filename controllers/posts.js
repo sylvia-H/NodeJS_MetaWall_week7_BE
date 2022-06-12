@@ -83,9 +83,9 @@ const PostController = {
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
   },
   async like(req, res) {
-    const id = req.params.id;
+    const _id = req.params.id;
     await Post.findOneAndUpdate(
-      { id },
+      { _id },
       { $addToSet: { likes: req.user._id } },
       { new: true },
       (err, result) => {
@@ -105,9 +105,9 @@ const PostController = {
     );
   },
   async unlike(req, res) {
-    const id = req.params.id;
+    const _id = req.params.id;
     await Post.findOneAndUpdate(
-      { id },
+      { _id },
       { $pull: { likes: req.user._id } },
       { new: true },
       (err, result) => {
