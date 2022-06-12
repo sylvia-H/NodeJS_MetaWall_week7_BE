@@ -25,6 +25,11 @@ const PostController = {
       .sort(timeSort);
     successHandler(res, posts);
   },
+  async getMyPosts(req, res, next) {
+    const user = req.params.id;
+    const myPosts = await Post.find({ user });
+    successHandler(res, myPosts);
+  },
   async createPosts(req, res, next) {
     // 只能 post 自己的貼文
     if (!req.user) {

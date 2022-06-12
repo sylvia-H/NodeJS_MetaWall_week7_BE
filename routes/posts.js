@@ -19,6 +19,16 @@ router.get(
   asyncErrorHandler(PostController.getPosts)
 );
 
+router.get(
+  '/:id',
+  /**
+    * #swagger.tags = ['Posts - 貼文']
+    * #swagger.description = '取得個人貼文列表 API'
+  */
+  isAuth,
+  asyncErrorHandler(PostController.getMyPosts)
+);
+
 router.post(
   '/',
   /**
