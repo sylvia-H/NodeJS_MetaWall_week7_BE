@@ -80,4 +80,34 @@ router.patch(
   asyncErrorHandler(PostController.editPosts)
 );
 
+router.post(
+  '/:id/like',
+  /**
+    * #swagger.tags = ['Posts - 貼文']
+    * #swagger.description = '貼文按讚 API'
+  */
+  isAuth,
+  asyncErrorHandler(PostController.like)
+);
+
+router.delete(
+  '/:id/like',
+  /**
+    * #swagger.tags = ['Posts - 貼文']
+    * #swagger.description = '貼文收回讚 API'
+  */
+  isAuth,
+  asyncErrorHandler(PostController.unlike)
+);
+
+router.get(
+  '/user/:id',
+  /**
+    * #swagger.tags = ['Posts - 貼文']
+    * #swagger.description = '取得個人按讚列表 API'
+  */
+  isAuth,
+  asyncErrorHandler(PostController.favList)
+);
+
 module.exports = router;

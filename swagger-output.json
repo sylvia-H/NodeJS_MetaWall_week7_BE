@@ -351,6 +351,55 @@
         "responses": {}
       }
     },
+    "/posts/{id}/like": {
+      "post": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "貼文按讚 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "貼文收回讚 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/posts/user/{id}": {
+      "get": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "取得個人按讚列表 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/comments/": {
       "get": {
         "tags": [
@@ -416,9 +465,19 @@
     },
     "/upload/": {
       "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
+        "tags": [
+          "Other - 上傳圖片"
+        ],
+        "description": "上傳圖片到 imgUr 圖床 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "form-data 資料格式",
+            "type": "string"
+          }
+        ],
         "responses": {}
       }
     }
