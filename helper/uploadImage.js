@@ -7,8 +7,6 @@ const apiLimiter = rateLimit({
   max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  handler: (request, response, next, options) =>
-    response.status(options.statusCode).send(options.message),
 });
 
 const upload = multer({
@@ -24,5 +22,19 @@ const upload = multer({
     cb(null, true);
   },
 }).any();
+
+// upload errorHandler
+// Middleware：過濾檔案格式與圖片大小
+upload(req, res, function (err) {
+  if (err instanceof multer.MulterError) {
+    // A Multer error occurred when uploading.
+    return appError(400, err, next);
+  } else if (err) {
+    // An unknown error occurred when uploading.
+    return appError(400, 'Bad Request Error - File upload failed.', next);
+  }
+  // Everything went fine.
+  next();
+});
 
 module.exports = { apiLimiter, upload };
