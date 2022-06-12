@@ -7,6 +7,15 @@ const UploadController = require('../controllers/upload');
 
 router.post(
   '/',
+  /**
+    * #swagger.tags = ['Other - 上傳圖片']
+    * #swagger.description = '上傳圖片到 imgUr 圖床 API'
+    * #swagger.parameters['body'] = {
+        in: "body",
+        required: true,
+        description: "form-data 資料格式"
+      }
+  */
   isAuth,
   apiLimiter,
   upload,

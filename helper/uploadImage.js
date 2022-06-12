@@ -23,4 +23,4 @@ const upload = multer({
   },
 }).any();
 
-module.exports = { upload, apiLimiter };
+module.exports = { apiLimiter, upload };
