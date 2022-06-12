@@ -5,7 +5,7 @@ const { isAuth, isAdmin } = require('../helper/auth');
 const CommentController = require('../controllers/comments');
 
 router.get(
-  '/:articleID',
+  '/:article_id',
   /**
    * #swagger.tags = ['Comments - 貼文評論']
    * #swagger.description = '取得某篇貼文的評論資訊 API'

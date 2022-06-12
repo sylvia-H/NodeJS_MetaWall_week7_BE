@@ -43,7 +43,7 @@ const postSchema = new mongoose.Schema(
 
 postSchema.virtual('comments', {
   ref: 'Comment',
-  foreignField: 'articleID',
+  foreignField: 'article_id',
   localField: '_id'
 });
 

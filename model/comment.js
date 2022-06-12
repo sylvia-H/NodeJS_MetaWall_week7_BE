@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const commentSchema = new mongoose.Schema(
   {
-    articleID: {
+    article_id: {
       type: mongoose.Schema.ObjectId,
       ref: 'Post',
       required: [true, '沒有貼文 ID'],
