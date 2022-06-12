@@ -18,7 +18,6 @@ router.post(
   */
   isAuth,
   apiLimiter,
-  upload,
   asyncErrorHandler(UploadController.uploadImg)
 );
 

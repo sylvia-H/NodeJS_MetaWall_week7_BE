@@ -23,18 +23,4 @@ const upload = multer({
   },
 }).any();
 
-// upload errorHandler
-// Middleware：過濾檔案格式與圖片大小
-upload(req, res, function (err) {
-  if (err instanceof multer.MulterError) {
-    // A Multer error occurred when uploading.
-    return appError(400, err, next);
-  } else if (err) {
-    // An unknown error occurred when uploading.
-    return appError(400, 'Bad Request Error - File upload failed.', next);
-  }
-  // Everything went fine.
-  next();
-});
-
 module.exports = { apiLimiter, upload };
