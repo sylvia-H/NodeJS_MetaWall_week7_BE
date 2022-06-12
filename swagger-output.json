@@ -4,7 +4,7 @@
     "title": "MetaWall API",
     "description": "MetaWall 元宇宙社交圈 API 文件"
   },
-  "host": "https://still-brushlands-57702.herokuapp.com",
+  "host": "https://agile-badlands-31115.herokuapp.com/",
   "basePath": "/",
   "tags": [],
   "schemes": [
@@ -310,6 +310,21 @@
       }
     },
     "/posts/{id}": {
+      "get": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "取得個人貼文列表 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
       "delete": {
         "tags": [
           "Posts - 貼文"
@@ -400,15 +415,24 @@
         "responses": {}
       }
     },
-    "/comments/": {
+    "/comments/{article_id}": {
       "get": {
         "tags": [
           "Comments - 貼文評論"
         ],
-        "description": "取得所有貼文評論資訊 API",
-        "parameters": [],
+        "description": "取得某篇貼文的評論資訊 API",
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {}
-      },
+      }
+    },
+    "/comments/": {
       "post": {
         "tags": [
           "Comments - 貼文評論"
@@ -436,7 +460,7 @@
         "tags": [
           "Comments - 貼文評論"
         ],
-        "description": "刪除單筆貼文評論資訊 API",
+        "description": "刪除單筆由自己張貼的評論資訊 API",
         "parameters": [
           {
             "name": "id",
@@ -451,7 +475,7 @@
         "tags": [
           "Comments - 貼文評論"
         ],
-        "description": "修改單筆貼文評論資訊 API",
+        "description": "修改單筆由自己張貼的評論資訊 API",
         "parameters": [
           {
             "name": "id",
