@@ -48,42 +48,25 @@ const CommentController = {
         successHandler(res, result);
       })
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
-
-    // await Comment.findById(id)
-    //   .then((result) => {
-    //     if (!result) {
-    //       return appError(400, 'Bad Request Error - Failed to get data', next);
-    //     }
-    //     // 非本人不能刪除評論
-    //     if(req.user.id !== result.author._id) {
-    //       return appError(401, 'Bad Request Error - You do not have permission to delete this comment', next);
-    //     }
-    //     await Comment.findByIdAndDelete(id)
-    //     .then(()=>{
-    //       CommentController.getComments(req, res);
-    //     })
-    //     .catch(() => appError(400, 'Bad Request Error - ID not found', next));
-    //   })
-    //   .catch(() => appError(400, 'Bad Request Error - ID not found', next));
   },
   async editComments(req, res, next) {
     const { body } = req;
     const { id } = req.params;
     const comment = await Comment.findById(id);
     // 非本人不能修改評論
-    if (req.user.id !== comment.author) {
-      return appError(
-        401,
-        'Bad Request Error - You do not have permission to delete this comment',
-        next
-      );
-    }
+    // if (req.user._id !== comment.author) {
+    //   return appError(
+    //     401,
+    //     'Bad Request Error - You do not have permission to delete this comment',
+    //     next
+    //   );
+    // }
     await Comment.findByIdAndUpdate(id, body)
       .then((result) => {
         if (!result) {
           return appError(400, 'Bad Request Error - Failed to get data', next);
         }
-        CommentController.getComments(req, res);
+        successHandler(res, result);
       })
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
   },
