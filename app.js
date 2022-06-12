@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
 var commentsRouter = require('./routes/comments');
+var uploadRouter = require('./routes/upload');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
+app.use('/upload', uploadRouter);
 
 // Generate Swagger API-Doc
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));

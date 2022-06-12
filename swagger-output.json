@@ -413,6 +413,14 @@
         ],
         "responses": {}
       }
+    },
+    "/upload/": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
     }
   },
   "definitions": {
