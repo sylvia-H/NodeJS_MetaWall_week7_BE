@@ -109,14 +109,14 @@ const UserController = {
         next
       );
     }
-    const { name, sex } = req.body;
+    const { name, sex, avatar } = req.body;
     // 更新暱稱 & 性別
-    await User.findByIdAndUpdate(req.user._id, { name, sex })
+    await User.findByIdAndUpdate(req.user._id, { name, sex, avatar })
       .then((userData) => {
         if (!userData) {
           return appError(400, 'Bad Request Error - Failed to get data', next);
         }
-        UserController.getProfile(req, res);
+        successHandler(res, userData);
       })
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
   },
