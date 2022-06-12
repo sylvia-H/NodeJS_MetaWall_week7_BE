@@ -84,53 +84,21 @@ const PostController = {
   },
   async like(req, res, next) {
     const _id = req.params.id;
-    await Post.findOneAndUpdate(
-      { _id },
-      { $addToSet: { likes: req.user.id } },
-      { new: true },
-      (err, result) => {
-        if (err) {
-          return appError(
-            400,
-            'Bad Request Error - Something wrong when updating data!',
-            next
-          );
-        }
-        res.status(201).json({
-          status: 'success',
-          postId: _id,
-          userId: req.user.id,
-        });
-      }
-    );
-    // await Post.findOneAndUpdate({ _id }, { $addToSet: { likes: req.user.id } });
-    // res.status(201).json({
-    //   status: 'success',
-    //   postId: _id,
-    //   userId: req.user.id,
-    // });
+    await Post.findOneAndUpdate({ _id }, { $addToSet: { likes: req.user.id } });
+    res.status(201).json({
+      status: 'success',
+      postId: _id,
+      userId: req.user.id,
+    });
   },
   async unlike(req, res, next) {
     const _id = req.params.id;
-    await Post.findOneAndUpdate(
-      { _id },
-      { $pull: { likes: req.user._id } },
-      { new: true },
-      (err, result) => {
-        if (err) {
-          return appError(
-            400,
-            'Bad Request Error - Something wrong when updating data!',
-            next
-          );
-        }
-        res.status(201).json({
-          status: 'success',
-          postId: id,
-          userId: req.user._id,
-        });
-      }
-    );
+    await Post.findOneAndUpdate({ _id }, { $pull: { likes: req.user.id } });
+    res.status(201).json({
+      status: 'success',
+      postId: _id,
+      userId: req.user.id,
+    });
   },
   async getFavList(req, res, next) {
     const user = req.params.id;
