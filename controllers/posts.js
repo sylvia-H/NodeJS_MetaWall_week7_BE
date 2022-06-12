@@ -103,14 +103,11 @@ const PostController = {
     //     });
     //   }
     // );
-    await Post.findOneAndUpdate(
-      { _id },
-      { $addToSet: { likes: req.user._id } }
-    );
+    await Post.findOneAndUpdate({ _id }, { $addToSet: { likes: req.user.id } });
     res.status(201).json({
       status: 'success',
-      postId: id,
-      userId: req.user._id,
+      postId: _id,
+      userId: req.user.id,
     });
   },
   async unlike(req, res, next) {
