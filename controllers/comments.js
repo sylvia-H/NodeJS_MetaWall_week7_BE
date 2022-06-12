@@ -33,7 +33,7 @@ const CommentController = {
     const { id } = req.params;
     const comment = await Comment.findById(id);
     // 非本人不能刪除評論
-    if (req.user.id !== comment.author._id) {
+    if (req.user.id !== comment.author) {
       return appError(
         401,
         'Bad Request Error - You do not have permission to delete this comment',
@@ -45,7 +45,7 @@ const CommentController = {
         if (!result) {
           return appError(400, 'Bad Request Error - Failed to get data', next);
         }
-        CommentController.getComments(req, res);
+        successHandler(res, result);
       })
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
 
@@ -71,7 +71,7 @@ const CommentController = {
     const { id } = req.params;
     const comment = await Comment.findById(id);
     // 非本人不能修改評論
-    if (req.user.id !== comment.author._id) {
+    if (req.user.id !== comment.author) {
       return appError(
         401,
         'Bad Request Error - You do not have permission to delete this comment',
