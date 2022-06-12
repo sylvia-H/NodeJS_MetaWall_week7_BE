@@ -26,12 +26,6 @@ const postSchema = new mongoose.Schema(
         ref: 'User' 
       }
     ],
-    comments: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Comment',
-      },
-    ],
     privacy: {
       type: String,
       default: 'private',
