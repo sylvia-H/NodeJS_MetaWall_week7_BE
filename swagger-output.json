@@ -1,0 +1,799 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "MetaWall API",
+    "description": "MetaWall 元宇宙社交圈 API 文件"
+  },
+  "host": "https://still-brushlands-57702.herokuapp.com",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-KEY",
+      "description": "system administrators's access permission"
+    }
+  },
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/users/sign_up": {
+      "post": {
+        "tags": [
+          "User - 使用者"
+        ],
+        "description": "使用者註冊 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "$ref": "#/definitions/sign_up_Schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "使用者註冊成功",
+            "schema": {
+              "$ref": "#/definitions/getToken_Schema"
+            }
+          }
+        }
+      }
+    },
+    "/users/sign_in": {
+      "post": {
+        "tags": [
+          "User - 使用者"
+        ],
+        "description": "使用者登入 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "$ref": "#/definitions/sign_in_Schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "使用者登入成功",
+            "schema": {
+              "$ref": "#/definitions/getToken_Schema"
+            }
+          }
+        }
+      }
+    },
+    "/users/updatePassword": {
+      "post": {
+        "tags": [
+          "User - 使用者"
+        ],
+        "description": "使用者修改密碼 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "$ref": "#/definitions/updatePassword_Schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "使用者修改密碼成功",
+            "schema": {
+              "$ref": "#/definitions/getToken_Schema"
+            }
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "tags": [
+          "User - 使用者"
+        ],
+        "description": "使用者取得個人資料 API",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "使用者成功取得個人資料",
+            "schema": {
+              "$ref": "#/definitions/getProfile_Schema"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "User - 使用者"
+        ],
+        "description": "使用者修改個人資料 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "$ref": "#/definitions/updateProfile_Schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "使用者成功修改個人資料：暱稱/性別/大頭照",
+            "schema": {
+              "$ref": "#/definitions/getProfile_Schema"
+            }
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": [
+          "後台：Users - 用戶"
+        ],
+        "description": "取得所有用戶資訊 API",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "管理者成功取得所有使用者資料",
+            "schema": {
+              "$ref": "#/definitions/getAllUsers_Schema"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "後台：Users - 用戶"
+        ],
+        "description": "刪除所有用戶資訊 API",
+        "parameters": [],
+        "responses": {},
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "後台：Users - 用戶"
+        ],
+        "description": "取得單一用戶資訊 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "管理者成功取得單一使用者資料",
+            "schema": {
+              "$ref": "#/definitions/getUser_Schema"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "後台：Users - 用戶"
+        ],
+        "description": "刪除單一用戶資訊 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "後台：Users - 用戶"
+        ],
+        "description": "修改單一用戶資訊 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/posts/": {
+      "get": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "取得所有貼文 API",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功取得所有貼文內容",
+            "schema": {
+              "$ref": "#/definitions/getPosts_Schema"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "新增貼文 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "$ref": "#/definitions/createdPosts_Schema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功新增一篇貼文",
+            "schema": {
+              "$ref": "#/definitions/getPosts_Schema"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "後台：Posts - 貼文"
+        ],
+        "description": "刪除所有貼文 API",
+        "parameters": [],
+        "responses": {},
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/posts/{id}": {
+      "delete": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "刪除單一貼文 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "patch": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "修改單一貼文 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "$ref": "#/definitions/editPost_Schema"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/comments/": {
+      "get": {
+        "tags": [
+          "Comments - 貼文評論"
+        ],
+        "description": "取得所有貼文評論資訊 API",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "Comments - 貼文評論"
+        ],
+        "description": "新增單筆貼文評論資訊 API",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "後台：Comments - 貼文評論"
+        ],
+        "description": "刪除所有貼文評論資訊 API",
+        "parameters": [],
+        "responses": {},
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/comments/{id}": {
+      "delete": {
+        "tags": [
+          "Comments - 貼文評論"
+        ],
+        "description": "刪除單筆貼文評論資訊 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "patch": {
+        "tags": [
+          "Comments - 貼文評論"
+        ],
+        "description": "修改單筆貼文評論資訊 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "sign_up_Schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "NewUser"
+        },
+        "email": {
+          "type": "string",
+          "example": "test@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "12345678"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "password"
+      ]
+    },
+    "sign_in_Schema": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "test@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "12345678"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "updatePassword_Schema": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "example": "12345678"
+        },
+        "confirmPassword": {
+          "type": "string",
+          "example": "87654321"
+        }
+      },
+      "required": [
+        "password",
+        "confirmPassword"
+      ]
+    },
+    "updateProfile_Schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "OldUser"
+        },
+        "sex": {
+          "type": "string",
+          "example": "Female"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://i.imgur.com/K3dyy79.png"
+        }
+      },
+      "required": [
+        "name",
+        "sex"
+      ]
+    },
+    "getToken_Schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "example": "sfNhbGciOiWERzI1NiMsInR1cCI6IkpJKLH7.eyMmVRJ3HjYyYTQ1ODAxNTYzWPV3ODg2NGY3BTW6OCIsInJvbLSiOiJ1c4VyIiwiaWL0IjoxNjU0OTM3NjAxLCJleHAiOjE2NTU8NDI0MDF2.hoqeR8jfI2Wcwq38Fqdo0kW880Ud3QBxcnzBTWY1ppj"
+            },
+            "name": {
+              "type": "string",
+              "example": "NewUser"
+            },
+            "role": {
+              "type": "string",
+              "example": "user"
+            }
+          }
+        }
+      }
+    },
+    "getProfile_Schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "33b1561v5d02zz2bfr0d5506"
+            },
+            "name": {
+              "type": "string",
+              "example": "NewUser"
+            },
+            "avatar": {
+              "type": "string",
+              "example": "https://i.imgur.com/K3dyy79.png"
+            },
+            "role": {
+              "type": "string",
+              "example": "user"
+            },
+            "sex": {
+              "type": "string",
+              "example": "Female"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2022-06-11T06:58:59.025Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2022-06-11T08:58:58.590Z"
+            }
+          }
+        }
+      }
+    },
+    "getUser_Schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "example": "user"
+              },
+              "_id": {
+                "type": "string",
+                "example": "33b1561v5d02zz2bfr0d5506"
+              },
+              "name": {
+                "type": "string",
+                "example": "NewUser"
+              },
+              "avatar": {
+                "type": "string",
+                "example": "https://i.imgur.com/K3dyy79.png"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2022-06-02T13:30:27.204Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2022-06-02T13:30:27.204Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "getAllUsers_Schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "example": "user2"
+              },
+              "_id": {
+                "type": "string",
+                "example": "11b1561v5d02zz2bfr0d1132"
+              },
+              "name": {
+                "type": "string",
+                "example": "NewUser"
+              },
+              "avatar": {
+                "type": "string",
+                "example": "https://i.imgur.com/K3dyy79.png"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2022-06-02T13:30:27.204Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2022-06-02T13:30:27.204Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "getPosts_Schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "6298cd452f75e1bf5c347d55"
+              },
+              "author": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "6298bdcc86d7d2a709c289e1"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "波吉"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "example": "https://www.nj.com/resizer/iqV2J-QFgh0227ybHBor4exTVBk=/800x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg"
+                  }
+                }
+              },
+              "content": {
+                "type": "string",
+                "example": "我一定要成為很棒棒的國王！"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "image": {
+                "type": "string",
+                "example": "https://images.unsplash.com/photo-1499026008573-50eedca8407b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80"
+              },
+              "likes": {
+                "type": "number",
+                "example": 0
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "6299d7788e41247531c5b899"
+                    },
+                    "articleID": {
+                      "type": "string",
+                      "example": "6298cd452f75e1bf5c347d55"
+                    },
+                    "author": {
+                      "type": "string",
+                      "example": "6298bb7386d7d2a709c289de"
+                    },
+                    "body": {
+                      "type": "string",
+                      "example": "加油～你可以的！"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-06-03T09:42:16.882Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-06-03T09:42:16.882Z"
+                    }
+                  }
+                }
+              },
+              "privacy": {
+                "type": "string",
+                "example": "private"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2022-06-02T14:46:29.020Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2022-06-03T10:16:29.092Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "createdPosts_Schema": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "example": "我一定要成為很棒棒的國王！"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "string",
+          "example": "https://images.unsplash.com/photo-1499026008573-50eedca8407b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80"
+        },
+        "privacy": {
+          "type": "string",
+          "example": "private"
+        }
+      },
+      "required": [
+        "content"
+      ]
+    },
+    "editPost_Schema": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "example": "各位我有一個作戰計畫..."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "string",
+          "example": "https://images.unsplash.com/photo-1500252185289-40ca85eb23a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"
+        },
+        "privacy": {
+          "type": "string",
+          "example": "public"
+        }
+      },
+      "required": [
+        "content"
+      ]
+    }
+  }
+}
