@@ -42,11 +42,7 @@ const isAdmin = asyncErrorHandler(async (req, res, next) => {
   // 驗證 header 是否夾帶 X-API-KEY 資訊
   const AUTH = req.headers['x-api-key'];
   if (!AUTH && AUTH !== 'MetaWall_admin') {
-    return appError(
-      401,
-      'Unauthorized Error - Permission denied.',
-      next
-    );
+    return appError(401, 'Unauthorized Error - Permission denied.', next);
   }
   // 驗證是否具有管理者權限
   if (req.user.role === 'admin') {
@@ -74,6 +70,8 @@ const generateJWTToken = (user, statusCode, res) => {
       token,
       name: user.name,
       role: user.role,
+      _id: user._id,
+      avatar: user.avatar,
     },
   });
 };
