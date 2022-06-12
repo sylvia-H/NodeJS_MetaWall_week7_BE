@@ -18,8 +18,9 @@ const CommentController = {
         article_id,
         author,
         comment,
+      }).then(() => {
+        CommentController.getComments(req, res);
       });
-      CommentController.getComments(req, res);
     } else {
       return appError(
         400,
