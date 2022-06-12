@@ -25,7 +25,7 @@ const PostController = {
       .sort(timeSort);
     successHandler(res, posts);
   },
-  async createPosts(req, res) {
+  async createPosts(req, res, next) {
     // 只能 post 自己的貼文
     if (!req.user) {
       return appError(401, 'Bad Request Error - Please login again.', next);
@@ -48,11 +48,11 @@ const PostController = {
       );
     }
   },
-  async deleteAllPosts(req, res) {
+  async deleteAllPosts(req, res, next) {
     const posts = await Post.deleteMany({});
     successHandler(res, posts);
   },
-  async deletePosts(req, res) {
+  async deletePosts(req, res, next) {
     const { id } = req.params;
     await Post.findByIdAndDelete(id)
       .then((result) => {
@@ -63,7 +63,7 @@ const PostController = {
       })
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
   },
-  async editPosts(req, res) {
+  async editPosts(req, res, next) {
     const { body } = req;
     const { id } = req.params;
     if (!body.content) {
@@ -82,7 +82,7 @@ const PostController = {
       })
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
   },
-  async like(req, res) {
+  async like(req, res, next) {
     const _id = req.params.id;
     await Post.findOneAndUpdate(
       { _id },
@@ -104,7 +104,7 @@ const PostController = {
       }
     );
   },
-  async unlike(req, res) {
+  async unlike(req, res, next) {
     const _id = req.params.id;
     await Post.findOneAndUpdate(
       { _id },
@@ -126,7 +126,7 @@ const PostController = {
       }
     );
   },
-  async getFavList(req, res) {
+  async getFavList(req, res, next) {
     const user = req.params.id;
     const favList = await Post.find({ user });
     successHandler(res, favList);
