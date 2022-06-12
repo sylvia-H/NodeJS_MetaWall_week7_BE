@@ -2,13 +2,15 @@ const express = require('express');
 const router = express.Router();
 const asyncErrorHandler = require('../helper/asyncErrorHandler');
 const { isAuth, isAdmin } = require('../helper/auth');
-const sizeOf = require('image-size');
-const { ImgurClient } = require('imgur');
+const { upload, apiLimiter } = require('../helper/uploadImage');
+const UploadController = require('../controllers/upload');
 
 router.post(
   '/',
   isAuth,
-  asyncErrorHandler(async (req, res, next) => {})
+  apiLimiter,
+  upload,
+  asyncErrorHandler(UploadController.uploadImg)
 );
 
 module.exports = router;
