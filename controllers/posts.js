@@ -82,6 +82,55 @@ const PostController = {
       })
       .catch(() => appError(400, 'Bad Request Error - ID not found', next));
   },
+  async like(req, res) {
+    const id = req.params.id;
+    await Post.findOneAndUpdate(
+      { id },
+      { $addToSet: { likes: req.user._id } },
+      { new: true },
+      (err, result) => {
+        if (err) {
+          return appError(
+            400,
+            'Bad Request Error - Something wrong when updating data!',
+            next
+          );
+        }
+        res.status(201).json({
+          status: 'success',
+          postId: id,
+          userId: req.user.id,
+        });
+      }
+    );
+  },
+  async unlike(req, res) {
+    const id = req.params.id;
+    await Post.findOneAndUpdate(
+      { id },
+      { $pull: { likes: req.user._id } },
+      { new: true },
+      (err, result) => {
+        if (err) {
+          return appError(
+            400,
+            'Bad Request Error - Something wrong when updating data!',
+            next
+          );
+        }
+        res.status(201).json({
+          status: 'success',
+          postId: id,
+          userId: req.user.id,
+        });
+      }
+    );
+  },
+  async getFavList(req, res) {
+    const user = req.params.id;
+    const favList = await Post.find({ user });
+    successHandler(res, favList);
+  },
 };
 
 module.exports = PostController;

@@ -107,7 +107,7 @@ router.get(
     * #swagger.description = '取得個人按讚列表 API'
   */
   isAuth,
-  asyncErrorHandler(PostController.favList)
+  asyncErrorHandler(PostController.getFavList)
 );
 
 module.exports = router;
